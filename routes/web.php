@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/blog/{entryID}', function($entryID){
+    if(Redis::EXISTS("blog.$entryID")){
+       return Redis::get("blog.$entryID");
+    }
+
+    else{
+        $content = "The blog content is here, what you are looking at now";
+        Redis::SETEX("blog.$entryID", 60, $content);
+    }
+});
