@@ -25,3 +25,5 @@ Route::get('/blog/{entryID}', function($entryID){
         Redis::SETEX("blog.$entryID", 60, $content);
     }
 });
+
+Route::get('/blog/{entryID}', 'blogController@show');
